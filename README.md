@@ -6,6 +6,10 @@
 
 本白嫖党不但英文不好，日文也不好。整点活。
 
+效果如下， 翻译质量不是很好。。。
+https://4judgement.github.io/rfc-translater/html/rfc7143.html
+
+
 ### 数据流动
 1. 取得RFC索引 https://tools.ietf.org/rfc/index (fetch_index)
 1. RFC 下载 https://tools.ietf.org/html/rfcXXXX (fetch_rfc)
