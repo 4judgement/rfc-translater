@@ -2,13 +2,13 @@
 <%
   import textwrap
   if ctx['updated_by'] == '':
-    ctx['updated_by'] = "自動生成"
+    ctx['updated_by'] = "自动生成"
 %>
-<html lang="ja">
+<html lang="zh">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${ctx['title']['text'] | h} 日本語訳</title>
+  <title>${ctx['title']['text'] | h} 中文对照</title>
 
 <%include file="head.html" />
 </head>
@@ -27,15 +27,15 @@
     <div class="row">
       <div id="rfc_header" class="col-sm-12 col-md-12">
         <div class="alert alert-info" role="alert">
-          <h4 class="alert-heading">${ctx['title']['text']} 日本語訳</h4>
+          <h4 class="alert-heading">${ctx['title']['text']} 中文对照</h4>
           <span class="URL">URL :
             <a href="https://tools.ietf.org/html/rfc${ctx['number']}">
               https://tools.ietf.org/html/rfc${ctx['number']}
             </a>
           </span><br>
           <span class="title_ja">
-            タイトル : <strong>${ctx['title']['ja']}</strong></span><br>
-          <span class="updated_by">翻訳編集 : ${ctx['updated_by']}</span><br>
+            タイトル : <strong>${ctx['title']['zh-cn']}</strong></span><br>
+          <span class="updated_by">人工翻译 : ${ctx['updated_by']}</span><br>
         </div>
       </div>
       <div id="rfc_alert" class="col-sm-12 col-md-12 hidden" role="alert">
@@ -61,7 +61,7 @@ ${paragraph['text'] | h}
       </div>
       <div class="col-sm-12 col-md-6">
         <h5 class="text mt-2">
-${paragraph['ja'] | h}
+${paragraph['zh-cn'] | h}
         </h5>
       </div>
 
@@ -73,7 +73,7 @@ ${paragraph['text'] | h}
       </div>
       <div class="col-sm-12 col-md-6">
         <p class="text indent-${paragraph['indent'] | h}">
-${paragraph['ja'] | h}
+${paragraph['zh-cn'] | h}
         </p>
       </div>
       % endif

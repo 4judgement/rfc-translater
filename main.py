@@ -7,6 +7,7 @@ from src.make_index import make_index
 from src.fetch_index import diff_remote_and_local_index
 from src.make_json_from_html import make_json_from_html
 
+
 def main(rfc_number, transmode):
     print('RFC %d:' % rfc_number)
 
@@ -26,8 +27,10 @@ def main(rfc_number, transmode):
         return
 
     res = trans_rfc(rfc_number, transmode)
-    if res is False: return False
+    if res is False:
+        return False
     make_html(rfc_number)
+
 
 def continuous_main(transmode, begin=None, end=None, only_first=False):
     numbers = list(diff_remote_and_local_index())
@@ -43,6 +46,7 @@ def continuous_main(transmode, begin=None, end=None, only_first=False):
         res = main(rfc_number, transmode)
         if res is False:
             break
+
 
 if __name__ == '__main__':
     import argparse

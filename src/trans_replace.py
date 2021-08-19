@@ -21,7 +21,7 @@ def trans_replace():
             # 変換ルールに基づく置換
             for text_eng, text_ja in rules.items():
                 if paragraph['text'] == text_eng:
-                    paragraph['ja'] = text_ja
+                    paragraph['zh-cn'] = text_ja
                     is_changed = True
 
             # セクション番号が「1.1。」となっている部分の修正
