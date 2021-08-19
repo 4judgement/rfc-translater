@@ -1,0 +1,7 @@
+requests
+lxml
+Mako
+tqdm
+googletrans==3.1.0a0
+selenium
+beautifulsoup4

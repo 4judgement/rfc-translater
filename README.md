@@ -1,31 +1,30 @@
 
-# RFC Translater
+# RFC Translator
 
 ### 目的
-1. RFCの英語を読むのが辛いので、Google翻訳した文を横に並べたものを読みたい。
-[RFCの日本語訳リンク集](https://www.nic.ad.jp/ja/tech/rfc-jp-links.html)では原文と日本語訳が別々のページになっていて、日本語訳が正しいのか判断しにくい問題がある
-2. RFCの本文は改行されているので、改行を削除した上でGoogle翻訳に貼り付けないと正しく翻訳されない。改行を削除する煩わしさを解決する
+原po是个岛国的英语渣，他觉得阅读RFC实在是太难了。（很难不认同）
 
-### 流れ
-1. RFCのインデックス取得 https://tools.ietf.org/rfc/index (fetch_index)
-1. RFCスクレイピング https://tools.ietf.org/html/rfcXXXX (fetch_rfc)
-2. セクション毎に分割 & 改行の除去 (fetch_rfc)
-3. Google翻訳で英語を日本語にする (trans_rfc)
-4. セクション毎に英文、日本語文を並べて表示するページの生成 (make_html)
-5. 有名なRFCやアクセス数の多いページに対しては、翻訳の修正作業などを行う (人手)
+本白嫖党不但英文不好，日文也不好。整点活。
+
+### 数据流动
+1. 取得RFC索引 https://tools.ietf.org/rfc/index (fetch_index)
+1. RFC 下载 https://tools.ietf.org/html/rfcXXXX (fetch_rfc)
+2. 字符串处理，去掉换行符声称段落。 (fetch_rfc)
+3. 翻译到目标语言 (trans_rfc)
+4. 生成两种语言并排的页面 (make_html)
+5. (我无法理解)翻译常用的 RFC (人手)
 
 ### 注意事項
-- 複数ページにわたる図や表は上手に解釈できないことがあります
-- 図や表の中に空行が含まれるときも上手に解釈できないことがあります
-- RFCのHTMLが例外的な構造になっている場合も上手に解釈できません（特に番号の小さいRFC）
-- RFC2220以降を対象とする (http://rfc-jp.nic.ad.jp/copyright/translate.html)
+- 複数ページにわたる図や表は上手に解釈できないことがあります | 多页图和表格可能不会被很好地解释
+- 図や表の中に空行が含まれるときも上手に解釈できないことがあります | 或者当表格包含空白行时，它可能不会被很好地解释。
+- RFCのHTMLが例外的な構造になっている場合も上手に解釈できません（特に番号の小さいRFC） | RFC HTML 具有特殊的结构，也不能很好地解释它。
+- RFC2220以降を対象とする (http://rfc-jp.nic.ad.jp/copyright/translate.html) | 不管不管
 
 <br>
 
-## 翻訳を修正したいときは
+## 人工修正指南
 
-当サイトをご利用いただきありがとうございます。
-翻訳修正の手順は以下の通りです。
+更正翻译的步骤如下
 
 ### 翻訳修正者
 
@@ -83,27 +82,27 @@
 
 1. PullRequestの修正差分を確認し、HTMLエスケープが適切に行われているかや、XSSに使われる危険なHTMLタグ（`script`, `a`, `img` など）がないことだけ確認する
 2. 問題がなければMergeし、ローカルにpullする
-3. `main.py --make-json --rfc <対象RFC>` でHTMLからJSONを逆作成し、変更差分を確認
-4. `main.py --make --rfc <対象RFC>` でJSONからHTMLを逆作成し、変更差分を確認
-5. レポジトリにpushする
+3. 使用 `main.py --make-json --rfc <target RFC>` 从 HTML 反向创建 JSON 并检查更改差异
+4. 使用 `main.py --make --rfc <target RFC>` 从 JSON 反向创建 HTML 并检查更改差异
+5. push
 
 TODO: HTMLエスケープ確認作業の一部自動化
 
 
 <br>
 
-## 開発者向け
+## 开发者指南
 
-### 実装機能
-- 文章のみ翻訳し、図や表はそのまま表示する
-- 文章がページ区切りで分割されていても1つの段落として翻訳する
-- インデントの深さも反映させる
-- 箇条書き（o + * - など）の記号はそのまま表示する
-- 表題（1.2.～ など）は文字を大きくする
-- 原本（英語RFC）へのリンクをスクロールしても常に表示する
-- 廃止されたRFCの場合、廃止されたことと修正版RFCへのリンクを表示する（例：RFC2246, RFC2616）
+### 功能实现
+- 仅翻译句子并按原样显示图形和表格
+- 即使文本被分成几页，也可以作为一个段落翻译
+- インデントの深さも反映させる (???)
+- 项目符号（o +-等）符号按原样显示
+- 标题（诸如 `1.2` 之类）会更加醒目
+- 原本（英語RFC）へのリンクをスクロールしても常に表示する | 似乎是做了写 link 处理。
+- 廃止されたRFCの場合、廃止されたことと修正版RFCへのリンクを表示する（例：RFC2246, RFC2616）| 处理了一些 rfc 版本之间的依赖。
 
-動作環境：Python3 + Windows or MacOS
+运行环境：Python3 | MacOS & Linux(centos 7.x | Fedora 34)
 
 ```
 pip install requests lxml
@@ -114,7 +113,7 @@ pip install selenium
 pip install beautifulsoup4
 ```
 
-Windowsの場合は、py -m pip に読み替えてください。
+>  这里 似乎翻译功能有待调优。。 selenium 不应该出现在 数据流动里。 
 
 2021/02/27 追記：googletrans 3.0.0 が使い物にならないので、SeleniumによるGoogle翻訳に切り替えました。
 従来の方法を使いたい場合は `--transmode py-googletrans` を指定してください。

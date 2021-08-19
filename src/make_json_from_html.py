@@ -18,7 +18,7 @@ def make_json_from_html(rfc_number):
 
     # 保存用JSONの構造
     data = {
-        "title": {"text": "", "ja": ""},
+        "title": {"text": "", "zh-cn": ""},
         "number": 0,
         "created_at": str(datetime.now(JST)),
         "updated_by": "",
@@ -29,9 +29,9 @@ def make_json_from_html(rfc_number):
     # print(html_text)
 
     # 英語タイトル
-    data['title']['text'] = soup.find('title').text.replace(" 日本語訳", "")
+    data['title']['text'] = soup.find('title').text.replace(" 中文", "")
     # 日本語タイトル
-    data['title']['ja'] = soup.find(class_="title_ja").find("strong").text
+    data['title']['zh-cn'] = soup.find(class_="title_ja").find("strong").text
 
     # RFC番号
     m = re.match(r'RFC ?(\d+)', data['title']['text'])
@@ -80,7 +80,7 @@ def make_json_from_html(rfc_number):
             if 'toc' in texts[0].attrs.get('class'):
                 row_data['toc'] = True
             # 翻訳文
-            row_data['ja'] = ""
+            row_data['zh-cn'] = ""
 
         # タグ名が見出しのとき
         if texts[0].name == 'h5':
@@ -89,7 +89,7 @@ def make_json_from_html(rfc_number):
 
         # 翻訳文
         if len(texts) >= 2:
-            row_data['ja'] = texts[1].text.strip()
+            row_data['zh-cn'] = texts[1].text.strip()
 
         # 各段落情報の追加
         data['contents'].append(row_data)
